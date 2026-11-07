@@ -1,0 +1,363 @@
+.comment("*****")
+
+COVID-19 (Corona Virus Disease 2019) Visualization package
+Nils M Holm, 2019--2021
+In the public domain (or under the Creative Commons Zero licence
+where the PD does not apply). See the file CC0 for a copy of the
+Creative Commons Zero license.
+
+To use this package, you will need the timeline data from the
+Johns Hopkins University Center for Systems Science and Engineering
+(JHU CSSE). There are two CSV files containing the confirmed case
+and death numbers:
+
+https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv
+
+https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv
+
+Download these files and then run the following shell command to import
+the data and set up the Klong databases:
+
+kg covid19 import
+
+This will take a while (about 10 minutes on my 750MHz machine). Once Klong's
+own database files have been set up, you can back up the old databases and
+import the latest version by downloading the latest copies of the CSV files
+and then running
+
+kg covid19 update
+
+To just start the COVID19 package, run the shell command
+
+kg -l covid19
+
+This will initialize the package and load the data from Klong's own
+database files, which is much faster than importing the CSV files.
+
+When running the COVID-19 package, there will be three in-memory
+databases containing the individual timelines for total cases, deaths,
+and recovered cases. (The latter is being approximated, because the
+data is probably unreliable.)
+
+A location to be examined can be selected from the databases by typing
+
+find("Location")
+
+where Location can be a province, state, country, or region. The string
+has to match a value in the database exactly, i.e. typing find("Hongkong")
+or find("hong kong") will not work, but find("Hong Kong") will. The
+current location will be bound to the variable "locn".
+
+This program generates the World statistics ("World") by summing up the
+entire database.
+
+To examine timeline data, look at the variables "conf" (confirmed cases),
+"dead" (deaths), and "recv" (recovered cases). The variables will be
+updated automatically when running "find". Active cases can be computed
+easily as conf-recv+dead (remember: right-to-left evaluation).
+
+To plot data sets, use the "show" function. For instance
+
+show([conf actv recv])
+
+will bar-plot the confirmed, active, and recovered cases for the current
+location and
+
+show([conf dead grow plot])
+
+will plot the absolute growth of confirmed cases and deaths. See the code
+of the "gen" function for a summary of options.
+
+To plot or bar-plot any data set, use the "graph" or "bar" functions.
+
+To quickly explore a location, type
+
+loc("Location") or view("Location")
+
+This will also switch to that location.
+
+BUGS:
+
+- Negative growth is clipped in bar plots (use "plot" option).
+- Innumerable others
+
+************************************************************************
+
+.l("csv.kg")
+.l("nplot.kg")
+.l("nstat.kg")
+
+:" date (x-axis) spacing "
+xspc::14
+
+:" temp file name "
+tmp::"vp",(2_$.rn()),".tmp"
+
+:" how to invoke GhostScript "
+plot2d::"gv -spartan -scale=0.7 -media=BBOX ",tmp
+
+:" green mode, for home page "
+green::0
+
+:" text and grid color "
+col.grid::{:[green;setcanvas(0.0;0.1;0.0);setcanvas(1.0;1.0;1.0)];
+           :[green;setrgb(0.5;1.0;0.5);setrgb(0.0;0.0;0.0)]}
+
+:" bar graph colors "
+col.conf::{:[~green;fillrgb(0.9;0.9;0.0);fillrgb(0.5;1.0;0.5)]}
+col.dead::{:[~green;fillrgb(0.0;0.9;0.9);fillrgb(0.1;0.4;0.1)]}
+col.recv::{:[~green;fillrgb(0.9;0.0;0.9);fillrgb(0.3;0.7;0.3)]}
+col.actv::{:[~green;fillrgb(1.0;0.5;0.0);fillrgb(0.2;0.7;0.2)]}
+
+:" color names "
+name.conf::{:[green;"lightest green";"yellow"]}
+name.dead::{:[green;"darkest green";"blue"]}
+name.recv::{:[green;"darker green";"pink"]}
+name.actv::{:[green;"lighter green";"orange"]}
+
+:" line styles "
+lin.conf::{setline(0);setwidth(1)}
+lin.dead::{setline(1);setwidth(1)}
+lin.recv::{setline(2);setwidth(1)}
+lin.actv::{setline(3);setwidth(1)}
+
+:" convert numeric string to number "
+num::{[v];:[:_v::0:$x;x;v]}
+
+:" read one database (csv file), return as vector "
+readdb::{[in oc db];oc::.fc(in::.ic(x));db::[];
+         {x;.mi(in)}{db::(,num'x),db;csv.read()}:~csv.read();
+        .cc(in);.fc(oc);|db}
+
+:" in-memory databases "
+dbconf::[];dbdead::[];dbrecv::[]
+
+:" copy file x to y "
+copy::{.tc(.oc(y));.fc(.ic(x));.p(.rl());.fc(0);.tc(0)}
+
+:" back up databases "
+backup::{copy("covid19-conf.kg";"covid19-conf.kg.OLD");
+         copy("covid19-dead.kg";"covid19-dead.kg.OLD");
+         copy("covid19-recv.kg";"covid19-recv.kg.OLD")}
+
+:" restore old databases "
+restore::{copy("covid19-conf.kg.OLD";"covid19-conf.kg");
+          copy("covid19-dead.kg.OLD";"covid19-dead.kg");
+          copy("covid19-recv.kg.OLD";"covid19-recv.kg")}
+
+:" approximate number of recovered cases "
+:" (confirmed cases from three weeks ago) "
+appxrecv::{(,*x),(1_x){(4#x),((&21),(-21)_(4_x))-(&21),(-21)_(4_y)}'1_y}
+
+:" import the databases from CSV files "
+import::{[oc db];
+  .p("Importing confirmed cases");
+  dbconf::db::readdb("time_series_covid19_confirmed_global.csv");
+  .tc(o::.oc("covid19-conf.kg"));
+  .d("dbconf::");.w(db);.p("");.cc(o);.tc(0);
+  .p("Importing deaths");
+  dbdead::db::readdb("time_series_covid19_deaths_global.csv");
+  .tc(o::.oc("covid19-dead.kg"));
+  .d("dbdead::");.w(db);.p("");.cc(o);.tc(0);
+  .p("Approximating recovered cases");db::appxrecv(dbconf;dbdead);
+  .tc(o::.oc("covid19-recv.kg"));
+  .d("dbrecv::");.w(db);.p("");.cc(o);.tc(0);:done}
+
+:" update the databases "
+update::{.p("Backing up databases");backup();import()}
+
+:" just import and exit when started as 'kg covid19 import' "
+:["import"~*.a;{import();.x(0)}();[]]
+
+:" just update and exit when started as 'kg covid19 update' "
+:["update"~*.a;{update();.x(0)}();[]]
+
+:" import local cases from CSV files "
+import.local::{.p("Importing local confirmed cases");
+  dbconf::readdb("_confirmed");
+  .p("Importing local deaths");
+  dbdead::readdb("_deaths");
+  .p("Approximating recovered cases");dbrecv::appxrecv(dbconf;dbdead);
+  :done}
+
+:" read the databases "
+.l("covid19-conf.kg")
+.l("covid19-dead.kg")
+.l("covid19-recv.kg")
+
+:" extract date strings, cut off the year "
+dates::{(-3)_x}'4_*dbconf
+
+rename::{[ren];ren::{x:-z,(({x@1}'x)?y),1};dbconf::ren(dbconf;x;y);
+         dbdead::ren(dbdead;x;y);dbrecv::ren(dbrecv;x;y)}
+
+rename("US";"USA")
+rename("Burma";"Myanmar")
+
+:" Conflate numbers for the whole world "
+
+cflw::{+/{4_x}'1_x}
+dbconf::dbconf,,["" "World" 0 0],cflw(dbconf)
+dbdead::dbdead,,["" "World" 0 0],cflw(dbdead)
+dbrecv::dbrecv,,["" "World" 0 0],cflw(dbrecv)
+
+:" list of countries "
+countries::{[a];1_a@<a::?{:[""~*x;x@1;""]}'1_dbconf}()
+
+:" list of region/country pairs "
+regions::{[a];1_a@<a::?{:[""~*x;[];(,*x),,x@1]}'1_dbconf}()
+
+:" extracted timelines for a given location "
+conf::[];dead::[];recv::[]
+
+:" current location "
+locn::[]
+
+:" find a province/state in the database "
+findps::{[c p];c::x;p::*y@&{(*x)~c}'y;locn:::[p;2#p;[]];4_p}
+
+:" find a country/region in the database "
+findcr::{[c p];c::x;p::*y@&{(""~*x)&(x@1)~c}'y;locn:::[p;2#p;[]];4_p}
+
+:" find the first timeline for a given province/state/country/region, "
+:" return identifiers on success, NIL if not found "
+
+find::{[ldps ldcr];
+       ldps::{conf::findps(x;dbconf);dead::findps(x;dbdead);
+              recv::findps(x;dbrecv)};
+       ldcr::{conf::findcr(x;dbconf);dead::findcr(x;dbdead);
+              recv::findcr(x;dbrecv)};
+       :[findcr(x;dbconf);ldcr(x);ldps(x)];locn}
+
+:" log(10;) with log(10;0) = 0 "
+log0::{log(10;x|1)}
+
+:" Average time of death in days in fatal cases. "
+:" Some people have suggested shifting the fatality "
+:" graph to the left (increasing t.o.d.) in order "
+:" retrieve a better estimate of COVID-19 lethality. "
+:" I strongly suggest to keep the value at 0 to "
+:" avoid artifacts and over-estimates. "
+
+tod::0
+
+:" Lethality given above t.o.d. "
+:" The leth() graph will fluctuate wildly for a while "
+:" (due to non-linear number of new cases) and then "
+:" start to converge. "
+:" To plot, use graph(leth()) or bar(leth()). "
+:" Do ignore fluctuating or implausible (>10%) values! "
+
+leth::{tod_100*{:[0=x;0;%x]}'((-tod)_conf){:[0=y;0;x%y]}'tod_dead}
+
+:" plot any set as a bar graph "
+bar::{[max oldc outc];oldc::.tc(outc::.oc(tmp));gr::0;max::|/x;
+      setwidth(1);col.grid();grid(0,(#x),xspc;0,(max+max%5),max%10);col.conf();
+      barplot(x);.cc(outc);.tc(oldc);.sys(plot2d);.df(tmp)}
+
+:" plot any set as a bar graph "
+graph::{[max oldc outc set];oldc::.tc(outc::.oc(tmp));gr::0;max::|/x;
+        setwidth(1);col.grid();grid(0,(#x),xspc;0,(max+max%5),max%10);
+	setline(0);setwidth(1);set::x;plot({set@_x});.cc(outc);.tc(oldc);
+        .sys(plot2d);.df(tmp)}
+
+growth::{--:'x}
+grrate::{({y%x|1}:'--:'x)&10}
+
+actv::{0|conf-recv+dead}
+
+:" Generate Postscript graphs for the currently selected location, "
+:" argument is a vector of these symbols: "
+:" conf - plot confirmed cases "
+:" dead - plot deaths "
+:" recv - plot recoveries "
+:" actv - plot active cases "
+:" grow - plot absolute growth instead of totals "
+:" rate - plot growth rates in percent instead of totals "
+:" plot - plot a segment curve instead of a bar graph "
+:" lgln - plot on a log-lin scale instead of lin-lin"
+:" modl - plot a spline model of weekly tendencies"
+:"        note: the model will only plot for the first parameter"
+:"        given, e.g. [conf actv modl] will plot a model for"
+:"        confirmed cases, but not for active cases"
+:" E.g. show([conf actv]) will print confirmed and active cases. "
+:" Bars will plot in the specified order, e.g. "
+:" show([actv recv]) will plot recoveries over active cases. "
+
+gen::{[max p q gr ra gf co de rc ac line s md yfn gdfn yl ys];
+      yfn:::[x?:lgln;{log0'x};{x}];gdfn:::[x?:lgln;lgrid;grid];
+      gr::0;gf::growth;gr:::[x?:grow;1;0];md:::[x?:modl;1;0];
+      ra:::[x?:rate;{gr::1;gf::grrate;ra::1}();0];co::yfn(:[gr;gf(conf);conf]);
+      de::yfn(:[gr;gf(dead);dead]);rc::yfn(:[gr;gf(recv);recv]);
+      ac::yfn(:[gr;gf(actv());actv()]);max::0;:[x?:conf;max::|/max,co;[]];
+      :[x?:dead;max::|/max,de;[]];:[x?:recv;max::|/max,rc;[]];
+      :[x?:actv;max::|/max,ac;[]];line::x?:plot;setwidth(1);col.grid();
+      yl:::[x?:lgln;_max+1.1^max;(_1.2*max)];ys:::[0=_max%10;1; _max%10];
+      gdfn(0,(#co),xspc;:[gr&~[]~line;-yl;0],yl,ys);p:::[ra;
+      " (Growth Rate)":|gr;" (Growth)";""];q:::[""~*locn;locn@1;
+      (*locn),", ",locn@1];title("COVID-19 Cases, ",q,p);
+      p:::[ra;"growth rate (capped at 10)":|gr;"growth";"cases"];
+      xtitle("days since 2020-01-22");ytitle(p);
+      :[line;{:[x~:conf;key0("cumulative confirmed cases");[]];
+              :[x~:dead;key1("cumulative deaths");[]];
+              :[x~:recv;key2("cumulative recoveries");[]];
+              :[x~:actv;key3("active cases");[]]}'x;
+            {:[x~:conf;desc0(name.conf()," - cumulative confirmed cases");[]];
+             :[x~:dead;desc1(name.dead()," - cumulative deaths");[]];
+             :[x~:recv;desc2(name.recv()," - cumulative recovered cases");[]];
+             :[x~:actv;desc3(name.actv()," - active cases");[]]}'x];
+      :[line;{lin.conf();:[x~:conf;plot({co@_x});[]];
+              lin.dead();:[x~:dead;plot({de@_x});[]];
+              lin.recv();:[x~:recv;plot({rc@_x});[]];
+              lin.actv();:[x~:actv;plot({ac@_x});[]]}'x;
+             {col.conf();:[x~:conf;barplot(co);[]];
+              col.dead();:[x~:dead;barplot(de);[]];
+              col.recv();:[x~:recv;barplot(rc);[]];
+              col.actv();:[x~:actv;barplot(ac);[]]}'x];
+      md:::[~md;0:|:conf~*x;co:|:dead~*x;de:|:recv~*x;rc:|:actv~*x;ac;0];
+      :[green;setrgb(1;1;0.3);0];
+      :[md;{desc4("model: weekly tendency");lin.conf();
+            s::spl(1+(#conf)%xspc;(!1+#md),'0,md);plot(sp(;s))}();0];draw()}
+
+:" generate and display graphs "
+show::{[outc oldc];oldc::.tc(outc::.oc(tmp));gen(x);
+       .cc(outc);.tc(oldc);.sys(plot2d);.df(tmp)}
+
+:" quickly explore a location "
+loc::{find(x);show([conf actv dead plot])}
+
+:" quickly explore a location, logarithmic scale "
+lloc::{find(x);show([conf actv dead lgln plot])}
+
+:" growth rate development of location, 7-day sliding window "
+grgraph::{find(x);graph({rndn(mu(grrate(x));3)}'(!71){7#x_y}'71#,conf)}
+
+:" average growth rate over the last X days for a given location Y "
+rate::{find(y);mu(grrate((-x)#conf))}
+
+:" Cut off head or tail of a timeline. "
+:" E.g. cutoff(-20) will remove the last 20 days "
+:" from the current location. Re-loading the location "
+:" will restore the timelines. "
+
+cutoff::{conf::x_conf;dead::x_dead;recv::x_recv}
+
+:" Extract the tail of a timeline (a sliding window). "
+:" E.g. slide(100) will extract the last 100 days "
+:" from the current location. "
+
+slide::{conf::(-x)#conf;dead::(-x)#dead;recv::(-x)#recv}
+
+:" smooth data Y set with X degrees of freedom "
+smooth::{[s];s::spl(x;(!#y),'y);sp2(;s)'!#y}
+
+:" Use World data by default "
+find("World")
+
+view::{green::1;find(x);slide(140);show([actv dead plot modl]);
+        :[0~|/dead;0;show([actv dead conf grow plot modl])];
+	:[0~|/dead;0;show([dead grow plot modl])]}
+watched::["Austria" "Belgium" "Denmark" "Finland" "France" "Germany"
+        "Italy" "Netherlands" "Poland" "Russia" "Spain" "Sweden"
+        "Switzerland" "USA" "United Kingdom" "World"]
+
