@@ -24,13 +24,13 @@ The badge above is GitHub's own status image for [`.github/workflows/ci.yml`](ht
 
 ## What the pictures are
 
-The panels below are transcript renders of commands run in this tree, plus diagrams and charts drawn from those outputs. They are not photographs of hardware.
+The panels below are SVG text and diagrams drawn from commands run in this tree. The transcript SVGs copy the lines saved in `assets/transcripts/`. They are not photographs and they do not embed PNG data.
 
-![Transcript render of tm self-check](assets/cli-self-check.png)
+![SVG text of the recorded tm self-check transcript](assets/cli-self-check.svg)
 
-![Transcript render of the model commands, including Klong](assets/cli-models.png)
+![SVG text of the recorded model-command transcripts](assets/cli-models.svg)
 
-![Transcript render of tm oracle next to the Klong interpreter](assets/cli-klong.png)
+![SVG text of tm oracle compared with the Klong interpreter](assets/cli-klong.svg)
 
 ![Two-node resistor network with the voltages printed by tm analog](assets/resistor-network.svg)
 
@@ -40,7 +40,7 @@ The panels below are transcript renders of commands run in this tree, plus diagr
 
 ![XOR chain for output bit y0 of the generated GF(2^8) multiplier](assets/gf-bit0.svg)
 
-Regenerate them, after `make` and `make bench`, with `make assets`. That step needs Python 3, Pillow, and the DejaVu fonts (`fonts-dejavu-core` and `fonts-dejavu-mono`).
+Regenerate them, after `make` and `make bench`, with `make assets`. That step needs Python 3 only. The standard library writes the SVG.
 
 ## Models
 
@@ -69,7 +69,7 @@ Regenerate them, after `make` and `make bench`, with `make assets`. That step ne
 - A C11 compiler and `make`. `libm` is linked.
 - For `make test-san`, a compiler that can link ASan and UBSan. On this image `cc` is Clang without compiler-rt, so the sanitizer target uses `gcc` (`SAN_CC=gcc`). Override `SAN_CC` if you need a different compiler.
 - Optional: Z3, Bitwuzla, or Boolector, to read `tests/golden/reversible.smt2`.
-- Optional, for figures: Python 3, Pillow, DejaVu Sans and DejaVu Sans Mono.
+- Optional, for figures: Python 3. `make assets` writes SVG only.
 
 No network service, account, or package registry is required to build or test.
 

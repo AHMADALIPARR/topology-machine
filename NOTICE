@@ -1,0 +1,24 @@
+Topology Machine
+Copyright (C) 2026 Topology Machine contributors
+
+This project is licensed under the GNU Affero General Public License,
+version 3, only. The full text is the file LICENSE.
+
+The starter archive did not name an individual copyright holder. Project
+sources therefore use the neutral line "Topology Machine contributors".
+
+Third-party work
+
+Klong, including the S9core files it ships with, is by Nils M Holm.
+The copy in third_party/klong/ is Klong 20221212 from
+https://t3x.org/klong/klong20221212.tgz
+SHA-256 5e1a4877228a3c643a99dbfd2d73e60bc3fa856e2615ac2fe78c80370e7f96b4
+
+Klong's LICENSE says nobody owns that code and that, where a jurisdiction
+does not recognize the public domain, the Creative Commons Zero license
+in third_party/klong/CC0 applies. Those terms are unchanged. The AGPL
+does not apply to that directory.
+
+The GNU Affero General Public License text itself is Copyright (C) 2007
+Free Software Foundation, Inc., and is used under the permission stated
+at the top of LICENSE.
