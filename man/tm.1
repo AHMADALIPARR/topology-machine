@@ -1,0 +1,115 @@
+.\" SPDX-License-Identifier: AGPL-3.0-only
+.\" Copyright (C) 2026 Topology Machine contributors
+.TH TM 1 "2026-11-07" "Topology Machine 1.0.0" "User Commands"
+.SH NAME
+tm \- discrete topology circuit workbench
+.SH SYNOPSIS
+.B tm
+.I command
+.RI [ options ]
+.SH DESCRIPTION
+.B tm
+evaluates finite Boolean DAGs, GF(2^8) products, reversible gates,
+two-to-four qubit amplitude circuits in an OpenQASM 3 subset, and
+small dense nodal systems. It is a software workbench. It does not
+claim a complexity-class separation, a quantum-hardware result, or a
+physical energy bound.
+.SH COMMANDS
+.TP
+.B help
+Print usage and exit 0.
+.TP
+.B version
+Print
+.B tm 1.0.0
+.
+.TP
+.B self-check \fR[\fB\-\-out-dir\fR \fIDIR\fR]
+Run the native bundle and write QASM, SMT-LIB, and the GF netlist.
+.TP
+.B oracle
+Print the decimal lines that
+.I klong/oracle.kg
+must match.
+.TP
+.B bench
+Print one wall-clock sample per kernel.
+.TP
+.B dag eval \-\-expr \fIEXPR\fR \-\-input \fIN\fR
+.TQ
+.B dag truth \-\-expr \fIEXPR\fR \fR[\fB\-\-bits\fR \fIN\fR]
+Expressions are
+.BR 0 ,
+.BR 1 ,
+.BI i k\fR,
+.BR not(e) ,
+.BR and(e,e) ,
+.BR or(e,e) ,
+and
+.BR xor(e,e) .
+Input bit 0 is the least significant bit.
+.TP
+.B gf mul \fIA\fR \fIB\fR
+.TQ
+.B gf inv \fIA\fR
+.TQ
+.B gf pow \fIA\fR \fIEXP\fR
+.TQ
+.B gf check \fR[\fB\-\-full\fR]
+.TQ
+.B gf circuit \-\-out \fIFILE\fR
+AES polynomial
+.BR 0x11b .
+.B \-\-full
+checks all 16777216 associativity and distributivity triples.
+.TP
+.B rev apply \-\-width \fIN\fR \-\-state \fIS\fR \-\-prog \fIPROG\fR
+.TQ
+.B rev check
+Gates are
+.BR cx ,
+.BR ccx ,
+and
+.BR cswap .
+Wires are decimal and must be distinct.
+.TP
+.B qasm bell \-\-out \fIFILE\fR
+.TQ
+.B qasm reversible \-\-out \fIFILE\fR
+.TQ
+.B qasm sim \fIFILE\fR
+The simulator accepts the subset this program emits, at most 4 qubits.
+Measurement is not sampled.
+.TP
+.B analog solve \-\-g \fIROWS\fR \-\-i \fIVALUES\fR
+Rows are separated by semicolons and entries by commas, in the C locale.
+.TP
+.B smt involution \-\-out \fIFILE\fR
+.TQ
+.B smt check
+Writes or reads the fixed 3-bit involution query.
+.B smt check
+is an 8-state reading of that query. It prints
+.B unsat
+when no counterexample state exists. An external solver is optional.
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+A check that should hold failed.
+.TP
+.B 2
+Usage or malformed input.
+.TP
+.B 3
+Input/output error.
+.TP
+.B 4
+Domain error, including a singular matrix, a missing field inverse, or an illegal wire.
+.SH SEE ALSO
+The project README, in particular the verification boundary.
+.SH LICENSE
+AGPL-3.0-only for Topology Machine. The vendored Klong interpreter
+remains public domain / CC0.

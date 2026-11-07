@@ -1,0 +1,38 @@
+:" Topology Machine oracle. SPDX-License-Identifier: AGPL-3.0-only"
+:" Copyright (C) 2026 Topology Machine contributors"
+:" Run with the Nils M Holm Klong interpreter: kg -n -q klong/oracle.kg"
+:" Decimal lines are compared with `tm oracle`. This is field and"
+:" permutation arithmetic, not a keyed authenticator."
+weights::[1 2 4 8]
+inputs::[1 0 1 1]
+dot::{+/x*y}
+s::+\inputs
+.p("dot ",$dot(weights;inputs))
+.p("scan ",($*s)," ",($(s@1))," ",($(s@2))," ",($(s@3)))
+zero::[0 0 0 0 0 0 0 0]
+red::[1 1 0 1 1 0 0 0]
+bx::{(x+y)!2}
+xt::{[c r];c::x@7;r::0,(-1)_x;:[c;bx(r;red);r]}
+gstep::{[acc a nxt];acc::*x;a::x@1;nxt::bx(acc;y*a);(,nxt),,xt(a)}
+unpack::{[n];n::x;{x!2}'(8#(8{x:%2}\*n))}
+pack::{+/x*2^!8}
+gmul::{[st];st::(,zero),,unpack(x);st::st gstep/ unpack(y);pack(*st)}
+.p("gf 87 131 ",$gmul(87;131))
+.p("gf 83 1 ",$gmul(83;1))
+.p("gf 83 0 ",$gmul(83;0))
+.p("gf 255 2 ",$gmul(255;2))
+.p("gf 128 2 ",$gmul(128;2))
+.p("gf 1 1 ",$gmul(1;1))
+.p("gf 2 2 ",$gmul(2;2))
+get::{(x:%(2^y))!2}
+flip::{:[get(x;y);x-2^y;x+2^y]}
+cx01::{:[get(x;0);flip(x;1);x]}
+ccx012::{:[get(x;0)&get(x;1);flip(x;2);x]}
+cswap012::{:[get(x;0)&~get(x;1)=get(x;2);flip(flip(x;1);2);x]}
+.p("rev cx 5 ",$cx01(5))
+.p("rev ccx 3 ",$ccx012(3))
+.p("rev cswap 5 ",$cswap012(5))
+.p("bool and 0 1 ",$(0&1))
+.p("bool or 0 1 ",$(0|1))
+.p("bool xor 1 1 ",$((1+1)!2))
+.p("bool not 0 ",$(~0))

@@ -1,0 +1,10 @@
+#!/bin/sh
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 Topology Machine contributors
+# Wrapper around the vendored public-domain Klong interpreter.
+# The interpreter itself remains under its own public-domain / CC0 terms.
+# Layout is prefix/bin/tm-kg, prefix/libexec/tm-kg.bin, prefix/share/topology-machine.
+bindir=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
+prefix=$(CDPATH= cd -- "$bindir/.." && pwd)
+export KLONGPATH="${KLONGPATH:-$prefix/share/topology-machine/klong-lib}"
+exec "$prefix/libexec/tm-kg.bin" "$@"
