@@ -1,0 +1,9 @@
+prefix=@PREFIX@
+libdir=@LIBDIR@
+includedir=@INCLUDEDIR@
+
+Name: topology-machine
+Description: Topology Machine discrete-model library
+Version: 1.0.0
+Libs: -L${libdir} -ltm -lm
+Cflags: -I${includedir}
