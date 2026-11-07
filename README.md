@@ -18,7 +18,7 @@ cd topology-machine
 make test
 ```
 
-The badge above is GitHub's own status image for [`.github/workflows/ci.yml`](https://github.com/AHMADALIPARR/topology-machine/actions/workflows/ci.yml). It shows the latest hosted conclusion. The offline label in `assets/badges/ci.svg` says "not yet run" because that SVG is generated in the tree and is not a live Actions result.
+The badge above is GitHub's own status image for [`.github/workflows/ci.yml`](https://github.com/AHMADALIPARR/topology-machine/actions/workflows/ci.yml). It shows the latest hosted conclusion.
 
 ![Architecture of the CLI, the five models, text artifacts, and the Klong comparison](assets/architecture.svg)
 
@@ -288,4 +288,4 @@ The Klong interpreter and S9core stay under their own public-domain / CC0 terms.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Bugs and security reports are described in [SECURITY.md](SECURITY.md).
 
-GitHub Actions for [AHMADALIPARR/topology-machine](https://github.com/AHMADALIPARR/topology-machine) is `.github/workflows/ci.yml`. It defines three jobs: `build, test, Klong` (`make test`), `sanitizers` (`make test-san`), and `solver` (Z3 on the emitted involution query, which must print `unsat`). Hosted run [42352065871](https://github.com/AHMADALIPARR/topology-machine/actions/runs/42352065871) on `936521bc` failed `make test` while compiling `tests/test_expr.c` (`-Werror=format-truncation`). The generator now copies into a checked buffer. The Actions badge is the live result; `assets/badges/ci.svg` stays the offline "not yet run" label.
+GitHub Actions for [AHMADALIPARR/topology-machine](https://github.com/AHMADALIPARR/topology-machine) is `.github/workflows/ci.yml`. It defines three jobs: `build, test, Klong` (`make test`), `sanitizers` (`make test-san`), and `solver` (plain `make`, then Z3 on the emitted involution query, which must print `unsat`). The badge at the top is that workflow's live status.

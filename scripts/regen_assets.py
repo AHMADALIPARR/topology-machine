@@ -363,7 +363,6 @@ def main() -> None:
     badge(ASSETS / "badges" / "c11.svg", "language", "C11", (47, 90, 130))
     badge(ASSETS / "badges" / "klong.svg", "klong", "20221212", (90, 78, 130))
     badge(ASSETS / "badges" / "qasm.svg", "openqasm", "3 subset", (47, 111, 78))
-    badge(ASSETS / "badges" / "ci.svg", "actions", "not yet run", (107, 98, 84))
     z3_record = (
         subprocess.run(["z3", "--version"], cwd=ROOT, text=True, capture_output=True).stdout
         + "command: z3 tests/golden/reversible.smt2\n"
