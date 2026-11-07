@@ -1,0 +1,65 @@
+#!/bin/sh
+
+tmp=/tmp/kplot.$$
+res=200
+scale=0.7
+pid=none
+
+usage() {
+	cat <<EOT
+
+Usage: kplot [options] fun x1 xn
+       kplot [options] file
+
+Options:
+
+-r res   set resolution too res (50..500, default: $res)
+-s x.y   set scaling factor to x.y (default: $scale)
+
+EOT
+}
+
+cleanup() {
+	rm -f $tmp
+	if [ $pid != none ]; then
+		kill $pid >/dev/null 2>&1
+	fi
+	exit 0
+}
+
+while true; do
+	case x$1 in
+	x-r)	res=$2; shift 2;;
+	x-s)	scale=$2; shift 2;;
+	x-h)	usage; exit 0;;
+	*)	break;;
+	esac
+done
+
+trap 'cleanup' 1 2
+
+if [ $# = 3 ]; then
+	kg -n -l nstat -l nplot -r "setres($res)" -r "aplot($1;$2;$3)" \
+		>$tmp 2>&1 &
+	pid=$!
+elif [ $# = 1 ]; then
+	if [ ! -s $1 ]; then
+		echo "kplot: $1: no such file"
+		exit 1
+	fi
+	kg -n -l nstat -l nplot $1 >$tmp 2>&1 &
+	pid=$!
+else
+	usage
+	exit 1
+fi
+
+while test ! -s $tmp; do
+	sleep 1
+	if grep error $tmp; then
+		cleanup
+		exit 1
+	fi
+done
+gv -scale=$scale -media=BBOX $tmp
+cleanup
