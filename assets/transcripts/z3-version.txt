@@ -1,0 +1,3 @@
+Z3 version 4.8.12 - 64 bit
+command: z3 tests/golden/reversible.smt2
+unsat
