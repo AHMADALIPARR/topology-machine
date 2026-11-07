@@ -24,4 +24,6 @@ a text-only upload can still carry their exact bytes:
   need it to build or run.
 
 `scripts/restore-upstream-bytes.sh` decodes both and checks SHA-256.
-`scripts/bootstrap.sh` runs that restore before `make`.
+`scripts/bootstrap.sh` runs that restore before `make`. The top-level
+`make` / `make test` / `make install` targets run it as well, via `sh`,
+so a checkout that lost the executable bit still restores the bytes.

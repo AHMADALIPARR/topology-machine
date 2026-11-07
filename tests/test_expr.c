@@ -18,25 +18,61 @@ static uint32_t rnd(void)
     return rng_state;
 }
 
-static void gen(char *dst, size_t cap, int depth)
+/* Copy text into dst. Return -1 instead of truncating: a short buffer must
+ * fail the test, and snprintf of two 255-byte pieces into a 512-byte buffer
+ * is a -Wformat-truncation error under -Werror on GCC. */
+static int append_text(char *dst, size_t cap, size_t *used, const char *text)
+{
+    size_t n = strlen(text);
+    if (*used >= cap || n >= cap - *used)
+        return -1;
+    memcpy(dst + *used, text, n);
+    *used += n;
+    dst[*used] = '\0';
+    return 0;
+}
+
+static int gen(char *dst, size_t cap, int depth)
 {
     int kind = (int)(rnd() % (depth <= 0 ? 3u : 7u));
+    size_t used = 0;
+
+    if (cap == 0)
+        return -1;
+    dst[0] = '\0';
     if (kind == 0)
-        snprintf(dst, cap, "0");
-    else if (kind == 1)
-        snprintf(dst, cap, "1");
-    else if (kind == 2)
-        snprintf(dst, cap, "i%u", rnd() % 3u);
-    else if (kind == 3) {
+        return append_text(dst, cap, &used, "0");
+    if (kind == 1)
+        return append_text(dst, cap, &used, "1");
+    if (kind == 2) {
+        char leaf[16];
+        int n = snprintf(leaf, sizeof leaf, "i%u", rnd() % 3u);
+        if (n < 0 || (size_t)n >= sizeof leaf)
+            return -1;
+        return append_text(dst, cap, &used, leaf);
+    }
+    if (kind == 3) {
         char inner[256];
-        gen(inner, sizeof inner, depth - 1);
-        snprintf(dst, cap, "not(%s)", inner);
-    } else {
-        char l[256], r[256];
+        if (gen(inner, sizeof inner, depth - 1) != 0)
+            return -1;
+        if (append_text(dst, cap, &used, "not(") != 0 ||
+            append_text(dst, cap, &used, inner) != 0)
+            return -1;
+        return append_text(dst, cap, &used, ")");
+    }
+    {
+        char left[256], right[256];
         const char *op = kind == 4 ? "and" : kind == 5 ? "or" : "xor";
-        gen(l, sizeof l, depth - 1);
-        gen(r, sizeof r, depth - 1);
-        snprintf(dst, cap, "%s(%s,%s)", op, l, r);
+        if (gen(left, sizeof left, depth - 1) != 0 ||
+            gen(right, sizeof right, depth - 1) != 0)
+            return -1;
+        if (append_text(dst, cap, &used, op) != 0 ||
+            append_text(dst, cap, &used, "(") != 0 ||
+            append_text(dst, cap, &used, left) != 0 ||
+            append_text(dst, cap, &used, ",") != 0 ||
+            append_text(dst, cap, &used, right) != 0)
+            return -1;
+        return append_text(dst, cap, &used, ")");
     }
 }
 
@@ -97,7 +133,7 @@ int main(void)
         tm_expr *tree = NULL;
         tm_dag *dag = tm_dag_new();
         int root = 0;
-        gen(buf, sizeof buf, 4);
+        CHECK(gen(buf, sizeof buf, 4) == 0);
         CHECK(tm_expr_parse(buf, &tree, err, sizeof err) == TM_OK);
         CHECK(tm_expr_to_dag(dag, tree, &root) == TM_OK);
         for (x = 0; x < 8; x++) {
