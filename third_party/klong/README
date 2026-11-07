@@ -1,0 +1,102 @@
+
+
+	.---. .--.---.  .-------.-----.---.-------.
+	|   |/   /   |  |       |     |   |       |
+	|       /|   |  |   |   |     '   |   .---'
+	|       \|   '---,  |   |   .     |   |   |
+	|   |\   \       |      |   |     |       |
+	'---' '--'-------'------'---'-----'-------'
+
+	----------------------------------------------------------------
+	KLONG - A SIMPLE ARRAY LANGUAGE
+	----------------------------------------------------------------
+
+	Nils M Holm, 2015--2021
+
+	Klong is like K, but without the syntactic ambiguity. You may
+	or may not think that this is a good thing; I'm not sure myself.
+	K is certainly the more expressive language, but I like the
+	syntactic clarity of Klong.
+
+	If you know K or APL, you may be disappointed by Klong. If you
+	don't know any array languages, it might explode your brain.
+	Use at your own risk!
+
+	If you do know one of the above languages, you might want to
+	have a look at the Klong Quick Reference, "klong-qref.txt". It
+	basically summarizes the data types, verbs, adverbs, and
+	expression syntax.
+
+	If you are not familiar with array languages, but are a bit
+	like me (who always reads the appendix first, because it has
+	the best S/N ratio), you might want to start with the Klong
+	Reference, "klong-ref.txt". It is basically a more elaborate
+	version of the Quick Reference.
+
+	Otherwise, there is a really short introduction to the Klong
+	language in "klong-intro.txt".
+
+	If you come from K and just want to know what's different in
+	Klong, then "klong-vs-k.txt" may be for you -- it's a work in
+	progress, though.
+
+	----------------------------------------------------------------
+	COMPILING AND INSTALLING
+	----------------------------------------------------------------
+
+	You can download Klong here: http://www.t3x.org/klong/
+
+	Compiling Klong should be straight forward. Just run "make".
+	If you have a C99-compliant C compiler, everything should work
+	fine. (In fact, C89 will suffice as long as you do not define
+	BITS_PER_WORD_64, i.e. do a 64-bit build; see s9core.h)
+
+	*** If Klong should not compile, it is most probably due to the
+	*** built-in line editor. You can disable it by removing -DEDIT
+	*** from the OPTIONS variable in the Makefile.
+
+	Klong also compiles natively on Plan 9, simply use the supplied
+	mkfile. Even on Plan 9, Klong uses the KLONGPATH variable to
+	find its library files.
+
+	To install Klong, just copy the kg binary to /usr/local/bin or
+	some similar place and point the KLONGPATH environment variable
+	at the lib/ directory of the Klong source tree.
+
+	An image file, which loads much faster than source code, can be
+	compiled using the command
+
+	./kg -l file ... -o klong.image
+
+	where each "file" is a Klong module (either selected from the
+	lib/ directory or supplied by the user). If you are using an
+	image, copy the klong.image file to any directory contained in
+	KLONGPATH.
+
+	To compile a "safe" version of the interpreter, which does
+	not make the system() function available to the user, add
+	the -DSAFE compile time option or just make kg.safe.
+
+	Files ending in ".kg" are Klong programs, you can load them
+	with ]lname or ./kg -l name (with or without the suffix).
+
+	The KLONGOPTS environment variable will be checked for command
+	line options on interpreter startup. E.g. KLONGOPTS="-l set.kg"
+	will always load "set.kg". If you plan to load many and/or large
+	files, you might want to use an image file instead.
+
+	Enjoy!
+
+	----------------------------------------------------------------
+	THANKS
+	----------------------------------------------------------------
+
+	Thanks to all the people who helped make Klong better by
+	reporting bugs and mistakes in the documentation, submitting
+	programs and patches, suggesting improvements, etc:
+
+	Alexander Shendi, Bobby Jack, Dave Long, Fabian Carlstrom,
+	Hakan Kjellerstrand, Jerome Ibanes, Kai Trukenmueller,
+	Marc-Jano Knopp, Micah Stetson, Niplav, Pranomostro,
+	Steve Graham, Viktor Scopych, and the unknown hacker(s).
+
