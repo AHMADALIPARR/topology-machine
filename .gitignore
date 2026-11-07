@@ -1,0 +1,17 @@
+*.o
+*.a
+*.out
+*.core
+__pycache__/
+*.pyc
+build/
+out/
+agent-tools/
+uploads/
+third_party/klong/kg
+third_party/klong/kg.safe
+third_party/klong/klong.png
+third_party/klong/lib/nstat.kg
+third_party/klong/*.o
+third_party/klong/klong.image
+third_party/klong/lib/klong.image
