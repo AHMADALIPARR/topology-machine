@@ -1,0 +1,384 @@
+20221212 Fix: side effect of vector literals in dicts. Thanks, Brian Guarraci!
+20221212 Clarified description of module mechanism. Thanks again, Brian!
+20220306 Fixed memory allocation bug. Thanks, Vincent Bernardoff!
+20211014 Added asin, acos, atan functions to math.kg.
+20211014 Fixed delete-char (^D) at end of line in built-in editor.
+20200403 Fixed hanging editor when pressing INTR inside of a list/dict/fun.
+20200403 Made control-D delete char, if line is not empty.
+20200403 Changed growth rate function in COVID19 package.
+20200402 ----------------------------------------------------------------------
+20200402 Added line editor and history. (kg.c)
+20200402 This may break compilation on your system! If it does, remove -DEDIT
+20200402 from the OPTIONS variable in the Makefile.
+20200402 If the editor compiles, it can be disabled by setting .edit::0.
+20200402 ----------------------------------------------------------------------
+20200329 Added log-lin grid style (lgrid,lframe) to nplot.kg.
+20200329 Added log-lin plots to COVID-19 package.
+20200327 Added complex operators (cadd,csub,cmul,cdiv,cexp,cabs) to math.kg.
+20200327 Added (not so) fast Fourier transform (fft) to math.kg.
+20200325 Added spline model to COVID19 package.
+20200323 Adapted COVID-19 package to new data format; recovery data are now
+20200323 longer available and will now be approximated.
+20200322 Made test suite pass with .fastpow::1.
+20200322 Fix: COVID-19 world statistics contained some duplicates.
+20200322 Added growth rate statistic to COVID-19 package.
+20200321 The COVID19 package now converts imported data to own format.
+20200320 Fix: x^0 is undefined now in .fastpow mode (was 0).
+20200320 Removed commas from a few country names in the COVID19 package.
+20200319 ----------------------------------------------------------------------
+20200319 Made Power (x^y) operator about eight times faster for real numbers.
+20200319 If this change should break any of your programs, set .fastpow::0
+20200319 to restore the old behavior.
+20200319 ----------------------------------------------------------------------
+20200319 Added "pow" (fast power) function to lib/math.kg.
+20200319 Added "all2" function to util.kg: apply dyadic fns to atoms of lists.
+20200318 Documented the "replot" function of lib/nplot.kg.
+20200318 Fix: "settext" funcion of nplot library now changes all text sizes.
+20200315 Added CC0 file, a copy of the Creative Commons Zero license.
+20200314 Added COVID-19 visualization package (lib/covid19.kg).
+20200312 Added "atan2" function to math.kg. Thanks, Alexander Shendi!
+20200312 Also added Alexander's "eigenv" package (computation of eigenvalues
+20200312 and eigenvectors); thanks again!
+20200311 Added Niplav's Huffman encoder/decoder package. Thanks!
+20190926 Fixed "cor" function in nstat.kg. Thanks, Niplav!
+20190727 Fix: [-] evaluated to [: ]. Ooops. Thanks, Steve Graham!
+20190724 Clarified return value of ".rn" function. Thanks, Steve Graham!
+20190714 Fixed typo in description of Atom in help.kg. Thanks, Steve Graham!
+20190630 Added the .pc() (process clock) system function and the "time" 
+20190630 function for timing Klong programs. Based on code by Niplav. Thanks!
+20190630 Replaced "shuffle" fn with a much cooler version by Niplav (nstat.kg).
+20190630 Replaced the "prime" function (math.kg) with a much faster version,
+20190630 also by Niplav. Thanks again!
+20190402 Updated S9core documentation.
+20190330 Upgraded to S9core IVc. Should improve numeric performance.
+20190330 64-bit build is now discouraged. DO NOT USE -DS9_BITS_PER_WORD_64!
+20190330 (You can still build on 64-bit platforms, but don't use 64-bit cells!)
+20190209 Fixed a bug that caused core dumps on 64-bit Linux and Android.
+20190209 Thanks to Steve Graham and Viktor Scopych for their help!
+20181225 Fixed examples for atomic operators in the manual (klong-ref.txt).
+20181225 Thanks, Micah Stetson!
+20181224 Fixed own typo in fix to elim from 20181008.
+20181224 Added regression test for fix from 20181205.
+20181205 Fix: S9core should never close the current input/output ports. Oops!
+20181205 Thanks, Micah Stetson!
+20181205 Fixed a typo and an omission in the reference manual (klong-ref.txt).
+20181205 Thanks, Kai Trukenmueller and Micah!
+20181008 Fix: Pranomostro reported and fixed two errors in "elim" (math.kg):
+20181008 (1) the function divided by zero when a zero was in the main diagonal
+20181008 (2) it failed to order matrixes with negative coefficients properly
+20181008 Both good catches! Thank you!
+20180213 Fix: I/O functions report I/O on closed channels.
+20180130 Fix: missing dependency (gauss) in lib/spline.kg.
+20180129 Added F-distribution functions (lib/nstat.kg).
+20180129 Fix: allowed forward definitions in modules; updated reference manual.
+20180128 Optimized "log" function for bases 10 and 2 (lib/math.kg).
+20180128 Made modules export symbols immediately; the effect is that a module
+20180128 can now apply its own functions to compute values of its variables,
+20180128 e.g.: .module(:m);f::{x};a::f(5);.module(0).
+20180127 Added "rn" (random number) and "ri" (rand. integer) fns (lib/math.kg).
+20180125 Renamed mode function "mo" ("mod" also kept for now) (lib/nstat.kg).
+20180125 Added mode and median functions for remaining dists (lib/nstat.kg).
+20180125 Added rectangular distribution functions (r.) (lib/nstat.kg).
+20180125 Added b.M (median) and b.mo (mode) functions (lib/nstat.kg).
+20180125 Added geo.M (median) and geo.mo (mode) functions (lib/nstat.kg).
+20180125 Added f.M (median) and f.mo (mode) functions (lib/nstat.kg).
+20180125 Added u.M (median) and function (lib/nstat.kg).
+20180125 Added "log" function (lib/math.kg).
+20180120 Added missing documentation of f/a with singleton "a".
+20180118 Fix: Min (&) should be atomic.
+20180118 Fix: Max (|) should be atomic.
+20180118 Made Char (:#) operator atomic.
+20180115 Added some silly puzzle solutions (src/silly.kg).
+20180114 Fix: .fc(0) and .tc(0) should have returned the previous channel.
+20180113 Micro-optimized Gaussian elimination (lib/math.kg).
+20180112 Simplified matrix product (lib/math.kg).
+20180106 Nested modules are now an error (was: undefined).
+20180104 Exit (.x) now returns success for all false values and else failure.
+20180104 Added -s (script file) command line option.
+20180104 Fix: primes(1) gave [2] (lib/math.kg).
+20180103 ".fc" and ".tc" now return the channel that was previously in effect.
+20180103 Fix: .r() can now read data without trailing newline.
+20180102 Added ".cin", ".cout", ".cerr" variables; bound to std I/O channels
+20180101 Added help entries for "math" module. (lib/math.kg)
+20180101 Fix: "help" used undefined "findstr" function. (lib/help.kg)
+20180101 Documented "sqr", "nrt", "tan" functions (lib/math.kg).
+20171231 Added "nrt" (nth root) and "tan" (tangent) functions to math.kg.
+20171230 Setting .e no longer changes floating point precision.
+20171229 Using more robust comparison method for real numbers in Match op.
+20171229 Made real^integer always return real, even if result is integer.
+20171228 Fixed dictionary creation. Given f::{[d];d:::{};{d,x,x}'x;d},
+20171228 f(!2);f(!1) should be :{[0 0]}. Was :{[0 0] [1 1]} due to in-situ
+20171228 modification of dictionary literal. Oops.
+20171226 Allowed a:=b to grow "a", if both "a" and "b" are strings, i.e.
+20171226 "abx":="cde",2 --> "abcde".
+20171226 Removed findstr(a;b) function from "util" module; a?b can do this.
+20171226 Reverted []=[] --> 1 back to undefined.
+20171225 Reporting Klong image path when running kg -v.
+20171225 []=[] --> 1; was undefined.
+20171224 ----------------------------------------------------------------------
+20171224 REORGANIZATION:
+20171224 Library: moved enum.kg, perm.kg to set.kg; primes.kg to math.kg.
+20171224 Library: moved ftu.kg to nstat.kg; p.kg pt.kg to print.kg.
+20171223 Library: moved gauss.kg, bisect.kg, regf.kg to math.kg.
+20171223 Removed obsolete "plot" and "plot3" modules; use "nplot" instead.
+20171223 Removed obsolete "stat" module; use "nstat" instead.
+20171223 ----------------------------------------------------------------------
+20171219 Fix: faster prime number generator. (lib/primes.kg)
+20171216 Documented shape parameter of -1 in Reshape.
+20171216 Change: [-1]:^[x] is an error; was undefined.
+20171216 Change: right argument of :^ may be []; was undefined.
+20171216 Change: 0:^x --> x for any x; was undefined.
+20171213 Added "comb" and "combr" (combinations) function (lib/perm.kg).
+20171213 CHANGE: "perm" is now a dyad: use perm(#x;x) for old behavior (same).
+20171212 Added "setwidth" function (set line width) to lib/nplot.kg.
+20171211 Added "setbar" function (set bar width) to lib/nplot.kg.
+20171210 Fix: missed a syntax error in program loading function.
+20171209 Added heap images, which dramatically speed up initial loading of
+20171209 programs (0.008s vs 0.3s for nstat and nplot). See README.
+20171208 Added "csv" module for reading/writing CSV files. (lib/csv.kg)
+20171206 Added "setcanvas" function to lib/nplot.kg.
+20171206 "setrgb" can now be used to change frame color (lib/nplot.kg).
+20171206 Fixed an undefined condition in the new expression parser.
+20171206 Fixed documentation of lognorm functions (lib/nstat.kg).
+20171130 Extended help database with info about "nplot", "nstat" modules.
+20171130 Renamed ]h (help) command ]a (apropos) (but ]h still works).
+20171130 Merged "const.kg" into "math.kg".
+20171129 Deprecated "plot" and "plot3d" modules (replaced by "nplot").
+20171129 Deprecated "stat" module (replaced by "nstat").
+20171129 Added "v.area3" function to interactive plotter. (lib/vplot.kg)
+20171129 Some minor cosmetical modifications.
+20171127 Added colorized 3D plots (area2, setgrad). (lib/nplot.kg)
+20171127 Added s9core reference manual. (s9core.txt)
+20171125 ----------------------------------------------------------------------
+20171125 NOTE: The current version uses a different grammar than the original
+20171125 version. For instance, "1f 2" and "1{x+y}2" are now valid expressions
+20171125 and projection works everywhere, for example: rndn(;3)'x or even
+20171125 (!3){x+y+z}(;5;)!3. The new grammar extends the previous one, so all
+20171125 existing program should still work. See the Klong reference manual
+20171125 for a formal description of the new syntax.
+20171125 ----------------------------------------------------------------------
+20171125 Fix: a f\b --> a,,f(a;b) for atomic "b" (was undefined).
+20171125 Fix: a f/b --> f(a;b) for atomic "b" (was undefined).
+20171124 New version passed old test suite.
+20171124 Added -n (ignore KLONGOPTS) command line option.
+20171123 Implemented bytecode generator.
+20171122 Rewrote parser with something less ad-hoc; generating an AST now.
+20171119 Added projection of functions onto arguments, e.g. f(;2), g(1;;3).
+20171116 Made vplot module work on Plan 9 using gs and page.
+20171116 Added ".h" (Host) variable, indicating host platform.
+20171115 Report an error when KLONGPATH is too long.
+20171114 Fix: missing dependency (math.kg) in lib/nplot.kg.
+20171111 Finished Plan 9 port. Thanks, Jerome Ibanes!
+20171110 Added rudimentary native Plan 9 support from S9.
+20171109 Fix: "aplot" function clipped its own markings. (lib/nplot.kg)
+20171109 Extended domain of Amend: string:=[string ...], amending substrings.
+20171109 Extended domain of Find: string?string, finding substrings.
+20171109 Updated test suite.
+20171107 Added "xtitle" and "ytitle" functions to nplot.kg.
+20171107 Added "xtitle3", "ytitle3", "ztitle3" functions to nplot.kg.
+20171107 CHANGE: location of title in nplot output. (lib/nplot.kg)
+20171106 Added the "fdist" and "shuffle" functions to lib/nstat.kg.
+20171105 Upgrade to S9core Mk IIIc (also fixes a GC error in At operator).
+20171104 Added experimental "setgray" and "setrgb" plotter fns. (lib/nplot.kg)
+20171104 Plotter: scatter/barplots will always use solid lines. (lib/nplot.kg)
+20171104 Increased default dot size from 3 to 5 in plotter. (lib/nplot.kg)
+20171104 Added "segplot" function to plotter. (lib/nplot.kg)
+20171103 Improved and documented the "klpot" script.
+20171103 Added ".fl" (flush) function for flushing output channel.
+20171102 Fixed a GC leak in the Each operator (strings only).
+20171101 Made interpreter recover more gracefully from INTR.
+20171101 Made 2D plotter clip out-of-range lines. (lib/nplot.kg)
+20171026 Fix: arguments of "cframe3"/"cgrid3" should be strings. (lib/nplot.kg)
+20171026 Added set variants of "rss", "rse", "mse", "r2". (lib/nstat.kg)
+20171026 CHANGE: "mse" function parameters (old: "mse.set"). (lib/nstat.kg)
+20171025 Added "n.qf" (normal distribution quantile function). (lib/nstat.kg)
+20171025 Fixed "f.pmf" function. (lib/nstat.kg)
+20171025 Documented "matp" (matrix product) function. (lib/math.kg)
+20171024 Fix: sqr(0) was undefined. (lib/math.kg)
+20171024 Added "set.dot" and "v.scatter2" functions to lib/vplot.kg.
+20171023 Fixed another error in the reference manual. Thanks Fabian!
+20171023 Added "err" and "errdist" function to lib/nstat.kg.
+20171023 Fixed a GC leak in the Each operator (string only).
+20171023 Fixed missing unsave() in string_to_vector().
+20171020 Added two missing cases to klong-vs-k document. Thanks, Fabian!
+20171020 Added "v.bar" and "v.scatter" functions to lib/vplot.kg.
+20171019 Fixed a few minor errors in the Klong reference (klong-ref.txt).
+20171019 Thanks to Steve Graham and Fabian Carlstrom for pointing these out!
+20171018 Minor changes to vplot module; completed documentation. (lib/vplot.kg)
+20171017 Made vplot work with ghostscript directly (w/o gv). (lib/vplot.kg)
+20171016 Documented "vplot" module. (lib/vplot.kg)
+20171015 Added module "nplot", unifies 2D and 3D plotter. (lib/nplot.kg)
+20171014 Added module "vplot", interactive plotter interface. (lib/vplot.kg)
+20171013 Made Multiply and Power operators interruptible.
+20171011 Added lognormal quantile function "ln.qf". (lib/nstat.kg)
+20171011 Made "cgrid" plot a vertical grid. (lib/plot.kg)
+20171002 Added "fillgray" and "fillrgb" to lib/plot.kg; deprecated "setfill".
+20170930 CHANGE: avoid artifacts for large k in "hist" function. (lib/nstat.kg)
+20170930 Improved placement of scaled text in plotter output. (lib/plot.kg)
+20170930 CHANGE: removed "spl.df" function (lib/nstat.kg).
+20170929 CHANGE: fixed "dist" function in lib/nstat.kg.
+20170929 Added "freq" and "nfreq" functions to lib/nstat.kg.
+20170929 Added "cgrid" and "cframe" functions to lib/plot3d.kg.
+20170927 Added "spl.df" (spline d.f.) function to lib/nstat.kg.
+20170927 Added "cve" (cross validation error) function to lib/nstat.kg.
+20170926 Added "cvset" (cross validation set) function to lib/nstat.kg.
+20170905 Fixed quantile function of t-distribution. (lib/nstat.kg)
+20170905 Fixed docs; 2nd arg of "ln.*" should be sigma^2. (lib/nstat.kg)
+20170904 Fix: "ln.pdf" and "ln.cdf" (lib/nstat.kg) formulae were wrong.
+20170830 Fix: "vline" and "errbar" with non-zero origin in lib/plot.kg.
+20170824 Added "mse" function to lib/nstat.kg.
+20170824 Fix: "b.cdf" did not work (lib/nstat.kg).
+20170823 Added "dist" function (create distributed data) to lib/nstat.kg.
+20170822 Added error bars to plotter ("errbar", "errplot"); lib/plot.kg
+20170819 Fix: "n.*" fns had sigma as z arg; should be sigma^2 (lib/nstat.kg).
+20170815 Added contingency table functions (ct.*) to lib/nstat.kg.
+20170812 Added "vline" function to lib/plot.kg.
+20170810 Added "desc"[0-4] and "bar" functions to lib/plot.kg.
+20170810 "settext" may now change text size of frame/grid (lib/plot.kg).
+20170809 Reviewed documentation of lib/nstat.kg.
+20170809 Added .md variable to lib/math.kg (mantissa digits).
+20170808 Added "rss", "rse", "tss", "r2", "spl" functions to lib/nstat.kg.
+20170808 Added "hist" (histogram) function to lib/nstat.kg.
+20170807 Made "setfill", etc affect scatterplot color (lib/plot.kg)
+20170807 Added "lreg" (linear regression) function to lib/nstat.kg.
+20170807 CHANGE: parameters of "spline" function (lib/spline.kg).
+20170806 "spline" function can now have <3 coordinates. (lib/spline.kg)
+20170806 Moved version (-v command line option) to long usage (-h, -?).
+20170803 Added example to lib/spline.kg.
+20170802 Fix: ".rn" (random number) function could return invalid numbers.
+20170801 Added spline interpolation (spline.kg) to lib/.
+20170729 Added gaussian elimination (gauss.kg) to lib/.
+20170727 Added matrix product ("matp") function to lib/math.kg.
+20170726 Applied some minor corrections to klong reference.
+20170726 Fix: ^string returned 0, should have been ,#string.
+20170725 Added ]h (help) meta command.
+20170725 Added "findstr" and "help" functions to lib/.
+20170723 Fix: :x:$":foo" --> :foo (was :undefined, now inverse of $:foo)
+20170718 Plotter: "settext" now also affects titles and keys. (lib/plot*.kg)
+20170717 Added "cframe" and "cgrid" functions to plotter. (lib/plot.kg)
+20170707 Added "enum" function; see lib/enum.kg
+20170707 Moved "sqr" function to math.kg.
+20170705 Added "setzspace" function to 3D plotter. See code. (lib/plot3d.kg)
+20170705 Unrolled postscript loops in 2D/3D plotter output. (lib/plot*.kg)
+20170705 Changed auto-scaling algorithm in 2D plotter. (lib/plot.kg)
+20170701 Changing ".e" now reduces precision of math functions. (Use w/ care!)
+20170629 Added simple 3D plotting library (lib/plot3d.kg).
+20170624 Fix: ln(x) undefined for ~x>0, not x<0 (lib/math.kg).
+20170620 Completed documentation of lib/plot.kg.
+20170620 Added lognormal distribution (lib/nstat.kg).
+20170618 Fix: adding an existing element to a dict would unbalance the stack.
+20170525 Disabled ]i in safe version of interpreter. Thanks, unknown hacker!
+20170209 Added frequency table update function (ftu.kg).
+20170204 Upgrade to S9core Mk III.
+20161212 Added Dave Long's line editor. Thanks!
+20161124 Fix: prime@5 returned 0. Thanks again, Pranomostro!
+20161123 Fix: missing "}" could result in core dump. Thanks, Pranomostro!
+20160925 Fix: ]i command could core-dump if KLONGPATH was not set.
+20160922 Fix: "ln" function was undocumented.
+20160724 Upgrade to S9core Mk II.
+20160720 Absolute/relative files no longer require a suffix; try: ]l./test
+20160719 Added KLONGOPTS environment variable.
+20160712 CHANGE: Reshape (:^) semantics are now K-like; old behavior: x:^,/:~y
+20160708 Added some set-theoretic operators (lib/set.kg).
+20160626 Fixed GC leaks in Enum (!x) and Transpose (+x). Thanks, Pranomostro!
+20160607 "x2.qf" now uses bisection, slow but always converges (lib/nstat.kg).
+20160606 Fix: "exp" returned wrong result for small negative x (lib/math.kg).
+20160606 Added bisection root finding method (lib/bisect.kg).
+20160601 Added nregf fun (regula falsi with limtited precision), lib/nstat.kg.
+20160601 Fixed description of :# (Split) in klong-ref.txt.
+20160507 Added "scplot2" function to lib/plot.kg.
+20160505 Added "barplot" and "scplot" (scatter) to lib/plot.kg.
+20160427 Fixed description of a few functions in lib/nstat.kg.
+20160427 Added "cdf" function (alias of "phi") to lib/nstat.kg.
+20160423 Fix: "barplot" function generated bad EPS (lib/plot.kg).
+20160422 Fix: k-combinations kc(0;x) should be 1 (lib/nstat.kg).
+20160419 Fixed two unresolved references in lib/nstat.kg.
+20160417 Added new and more comprehensive statistics package (lib/nstat.kg).
+20160417 Added setgrid(spacing) to plotter (lib/plot.kg).
+20160409 Fix: k-combinations kc(0;x) --> 0 in lib/stat.kg (was an error).
+20160406 Added the "gcd" and "lcm" functions to lib/math.kg.
+20160403 Added the Beta distribution functions (pdf,cdf) to lib/stat.kg.
+20160403 Added the regularized/incomplete Beta functions to lib/math.kg.
+20160321 Replaced secant by regf in lib/stat.kg.
+20160321 Added regula falsi root finding method (lib/regf.kg).
+20160305 Fix: chi2.pdf(1;0) --> 0 (lib/stat.kg).
+20160303 Fix: aplot (lib/plot.kg) generated faulty EPS.
+20160302 Added key0..key4 functions for labelling curves (lib/plot.kg).
+20160302 Added -u command line option to disable memory limit.
+20160302 Placed labels outside of grid in function plotter. Thanks, MJK!
+20160301 Added "setline" function for setting line patterns (lib/plot.kg).
+20160228 Added t distribution PDF and CDF to lib/stat.kg.
+20160224 Fixed description of "rcp" in lib/stat.kg.
+20160220 Added chi-square quantile function to lib/math.kg.
+20160219 Added chi-square PDF and CDF to lib/math.kg.
+20160218 Added upper and lower incomplete gamma functions to lib/math.kg.
+20160215 Now renaming local variables, implementing 2/3-hearted static scoping.
+20160215 The .module system function now expects a symbol argument (or 0).
+20160215 CHANGEd .module syntax in all modules in lib/.
+20160214 Re-arranged some definitions in modules to reflect new scoping.
+20160214 CHANGEd signature of "secant" function to secant(fn;x0;xn).
+20160213 CHANGEd scoping ("module" now closes over internal vars); see docs!
+20160212 Added regularized incomplete gamma function ("gamp") to math.kg.
+20160211 Added "gamma" and "beta" functions to math.kg.
+20160209 Added "sin" and "cos" to math.kg.
+20160208 Moved "exp" and "rnd" to math.kg; added "ln" function.
+20160204 Added setres (set resolution) function to plotter (lib/plot.kg).
+20160127 Added multi-character reject to S9core reader (fixing [:sym] bug).
+20160127 Included quantile function (qf; inverse CDF) in lib/stat.kg.
+20160126 Fix: line numbers in messages were off by one.
+20160124 .l and -l no longer print the library path (but ]l still does).
+20160124 Fix: .l function did not work any longer after 20160116 fix.
+20160124 Fixed potential GC leaks in some functions (Dstack access after pop).
+20160123 Added function trace when kg is started with the -d (debug) option.
+20160123 Added various functionality to curve plotter (lib/plot.kg).
+20160118 Fix: -r option had become a synonym for -t. Oops.
+20160117 Feature req: system command execution (.sys function).
+20160116 Feature req: added transcript file (-t file, ]t file).
+20160116 Fix: symbols could turn undefined after keyboard interrupt.
+20160107 S9core: using LL suffix instead of cast in s9core.h. No cigar in C89.
+20160107 S9core: added cast to INT_SEG_LIMIT, b/c there's no long long in C89.
+20160103 Fix: qdict function (lib) replaced :#10 by :#1 in strings.
+20151227 Fix: f'[a] tried to evaluate "a" as a variable.
+20151221 .l can now load programs from absolute paths (./ or /).
+20151220 Fix: hashes could be miscalculated when growing dictionaries.
+20151219 CHANGE: dict lookup D?x returns a value on success, else :undefined.
+20151219 Added .rs (Read String) function for parsing compound data.
+20151218 CHANGE: D,x updates dictionary D. To get the old behavior: (,D),x
+20151218 CHANGE: .l now returns the value of the last expr in the file.
+20151218 Fix: local files would load even without "." in KLONGPATH.
+20151218 Fix: line counter was sometimes off when loading files.
+20151217 Added -r command line option: like -e, but does not print result.
+20151216 Added the .comment system function (block comments).
+20151216 Fix: symbols did not work as dictionary keys.
+20151210 Made ]i list first element of KLONGPATH by default.
+20151209 Dictionaries are always updated in situ now.
+20151209 Fix: non-decimal numbers were not parsed correctly.
+20151208 Fix: plot.kg with intervals [x..y] where x>0 computed wrong curves.
+20151206 Added context (monadic/dyadic) check for adverbs.
+20151205 Moved differences to K to a separate document (klong-vs-k.txt).
+20151202 Reference manual: added section about differences to K.
+20151202 Fix: applied some small (but critical) fixes to the reference manual.
+20151202 Fix: dictionaries could crash due to negative hash values.
+20151202 Fix: interpreter crash after finding an adverb without verb.
+20151201 Fix: Range semantics (use *'= for old behavior). Thanks again, Hakan!
+20151201 "x", "y", and "z" are now ordinary variables at top level.
+20151130 A+A::B should use value of B in left A. Thanks, Hakan Kjellerstrand!
+20151128 Fix: -e option did not report argument too long.
+20151126 Fix: TAB prompt broke rlwrap. Thanks, Hakan Kjellerstrand!
+20151125 Fix: []:_A should return [A], not A.
+20151124 Added .a (Arguments) variable (holding command line args).
+20151124 Added file I/O functions; see I/O CHANNELS in klong-ref.txt.
+20151123 Added KLONGPATH environment variable; moved Klong programs to lib/.
+20151122 Fix: Size was called Count in documentation.
+20151122 Added -e expr (evaluate expression) command line option.
+20151122 Fixed a GC leak in Over/Neutral.
+20151121 a::1%0;a no longer reports "a" as "undefined" (true but not helpful).
+20151121 Allowed function definitions to span multiple lines.
+20151121 Applied some minor fixes to the documentation.
+20151120 Fix: "x", "y", "z" should have been read-only. Thanks, Steve Graham!
+20151119 Fix: _1 and &[1] could crash kg. Thanks, Alexander Shendi!
+20151119 Fix: getline() appears to be reserved by POSIX. (Also by Alexander)
+20151119 Clarified a few points in the documentation. Thanks, Bobby Jack!
+20151119 Fix: [:""] (a list containing a comment) is now equal to [].
+20150927 Initial release.
+20150806 Started implementation.

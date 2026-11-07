@@ -1,0 +1,16 @@
+
+	- .err(x): error reporting function
+
+	- tunable precision (.e)
+
+	- tunable floating point representation
+
+	- 8.0^_8.0^16 fails? (nah, probably overflows!)
+
+	- better error reporting
+
+	? ws (write string)
+	? dictionary update adverb, e.g. Df/[tuple ...]
+	? more projection: 1+ --> {1+x}
+	? :$ with 0[bcox] prefix
+
