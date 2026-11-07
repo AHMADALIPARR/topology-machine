@@ -1,0 +1,9 @@
+DAG: canonical sharing verified; nodes=7; xor(and(i0,i1),not(i0)) all 4 inputs passed
+GF(2^8): 0x57*0x83=0xc1; identity; commutativity 65536; iterative=recursive; inverses 255
+REVERSIBLE: CX, Toffoli, Fredkin are 3-bit permutations and involutions
+QUANTUM: Bell (|00>+|11>)/sqrt(2); probabilities 0.5/0.5; norm 1
+ANALOG: resistor-network nodal solution V=(0.400,0.200) residual=0.000e+00
+SMT: involution counterexample query has 0 models over 8 states
+CIRCUIT: gf256 multiplier gates=223 inputs=16 outputs=8; exhaustive 65536 match
+GENERATED: build/asset-out/bell.qasm build/asset-out/reversible.qasm build/asset-out/reversible.smt2 build/asset-out/gf256.tmnl
+PASS: all native checks

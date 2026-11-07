@@ -1,0 +1,16 @@
+dot 13
+scan 1 1 2 3
+gf 87 131 193
+gf 83 1 83
+gf 83 0 0
+gf 255 2 229
+gf 128 2 27
+gf 1 1 1
+gf 2 2 4
+rev cx 5 7
+rev ccx 3 7
+rev cswap 5 3
+bool and 0 1 0
+bool or 0 1 1
+bool xor 1 1 0
+bool not 0 1

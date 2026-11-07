@@ -1,0 +1,2 @@
+unsat
+note native reading of this fixed 8-state query, not an external solver proof
