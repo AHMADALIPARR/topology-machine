@@ -1,0 +1,4 @@
+# Pinned upstream tarball for the vendored tree in third_party/klong/.
+# The tree in this repository is the build input. Re-download with
+# scripts/fetch-klong.sh and compare; do not replace the tree silently.
+5e1a4877228a3c643a99dbfd2d73e60bc3fa856e2615ac2fe78c80370e7f96b4  klong20221212.tgz
