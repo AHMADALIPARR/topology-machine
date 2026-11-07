@@ -341,7 +341,7 @@ int tm_net_read(FILE *fp, tm_net **out, char *err, size_t errlen)
         return TM_ERR_NOMEM;
     while (fgets(line, sizeof line, fp)) {
         char *p = line;
-        char *tok[6];
+        char *tok[6] = {0};
         int nt = 0;
         size_t len;
         lineno++;
@@ -369,6 +369,13 @@ int tm_net_read(FILE *fp, tm_net **out, char *err, size_t errlen)
         }
         if (*p) {
             seterr(err, errlen, "too many tokens");
+            tm_net_free(n);
+            return TM_ERR_PARSE;
+        }
+        /* A non-empty line always yields one token. Guard anyway so tok[0]
+         * is not read when nt is 0 (GCC -Wmaybe-uninitialized). */
+        if (nt < 1) {
+            seterr(err, errlen, "unknown netlist statement");
             tm_net_free(n);
             return TM_ERR_PARSE;
         }

@@ -28,9 +28,17 @@ TEST_BINS = $(patsubst %,build/test_%,$(TEST_NAMES))
 KG = third_party/klong/kg
 INSTALL = install
 
-.PHONY: all test test-san test-klong test-full verify bench assets ci install uninstall clean klong help
+.PHONY: all test test-san test-klong test-full verify bench assets ci install uninstall clean klong help restore-bytes
 
-all: build/tm $(KG)
+# Plain `make` is what the solver job runs. That must build, not only restore.
+.DEFAULT_GOAL := all
+
+all: restore-bytes build/tm $(KG)
+
+# Decode nstat.kg and klong.png before build, test, or install. `sh` does not
+# need the script's executable bit, which a mode-less upload drops.
+restore-bytes:
+	sh scripts/restore-upstream-bytes.sh
 
 help:
 	@echo "make all test test-san test-klong bench install uninstall clean"

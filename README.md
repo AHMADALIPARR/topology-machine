@@ -18,7 +18,7 @@ cd topology-machine
 make test
 ```
 
-The badge above is GitHub's own status image for [`.github/workflows/ci.yml`](https://github.com/AHMADALIPARR/topology-machine/actions/workflows/ci.yml). This draft has not observed a hosted run. The image is not a claim that Actions passed. The offline label in `assets/badges/ci.svg` says "not yet run" for the same reason.
+The badge above is GitHub's own status image for [`.github/workflows/ci.yml`](https://github.com/AHMADALIPARR/topology-machine/actions/workflows/ci.yml). It shows the latest hosted conclusion.
 
 ![Architecture of the CLI, the five models, text artifacts, and the Klong comparison](assets/architecture.svg)
 
@@ -86,7 +86,7 @@ make install PREFIX=/usr/local
 make uninstall PREFIX=/usr/local
 ```
 
-`scripts/bootstrap.sh` checks for `cc`, `make`, and `diff`, then builds. `scripts/fetch-klong.sh` re-downloads `klong20221212.tgz` and checks SHA-256 `5e1a4877228a3c643a99dbfd2d73e60bc3fa856e2615ac2fe78c80370e7f96b4`. It does not replace the vendored tree.
+`./scripts/bootstrap.sh` checks for `cc`, `make`, and `diff`, restores the two non-UTF-8 Klong files, then builds. `make`, `make test`, and `make install` run that same restore, so a clean clone can use those targets directly. `./scripts/fetch-klong.sh` re-downloads `klong20221212.tgz` and checks SHA-256 `5e1a4877228a3c643a99dbfd2d73e60bc3fa856e2615ac2fe78c80370e7f96b4`. It does not replace the vendored tree.
 
 Install layout, under `PREFIX`:
 
@@ -156,7 +156,7 @@ PASS: all native checks
 
 `0x57 * 0x83 = 0xc1` is the AES test vector. `tm gf inv 0x57` prints `0xbf`. The truth table of `xor(and(i0,i1),not(i0))`, with `i0` the least significant bit, is `00 1`, `01 0`, `10 1`, `11 1`. The reference nodal solution is `V 0.400000000000 0.200000000000` with residual `0.000000e+00`. The Bell simulation prints probability 0.5 on `00` and `11`, and 0 on `01` and `10`.
 
-`examples/demo.sh` runs that path. `TM` and `OUT` override the binary and the output directory.
+`./examples/demo.sh` runs that path. `TM` and `OUT` override the binary and the output directory.
 
 ## CLI
 
@@ -288,4 +288,4 @@ The Klong interpreter and S9core stay under their own public-domain / CC0 terms.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Bugs and security reports are described in [SECURITY.md](SECURITY.md).
 
-GitHub Actions for [AHMADALIPARR/topology-machine](https://github.com/AHMADALIPARR/topology-machine) is `.github/workflows/ci.yml`. It defines three jobs: `build, test, Klong` (`make test`), `sanitizers` (`make test-san`), and `solver` (Z3 on the emitted involution query, which must print `unsat`). No hosted run of those jobs has been observed. Local `make test` and `make test-san` are the checks recorded below, not a GitHub result.
+GitHub Actions for [AHMADALIPARR/topology-machine](https://github.com/AHMADALIPARR/topology-machine) is `.github/workflows/ci.yml`. It defines three jobs: `build, test, Klong` (`make test`), `sanitizers` (`make test-san`), and `solver` (plain `make`, then Z3 on the emitted involution query, which must print `unsat`). The badge at the top is that workflow's live status.
