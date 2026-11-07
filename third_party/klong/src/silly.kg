@@ -1,0 +1,29 @@
+:"answers to silly interview questions"
+:"from Stanford CS9: https://web.stanford.edu/class/cs9/"
+
+.comment("*****")
+
+Examples:
+
+palin([[1 2] [3 [4] 3] [2 1]])  -->  1
+
+parens(3)  -->  ["()()()" "()(())" "(()())" "((()))" "(())()"]
+
+T::[[[21 -4 14] 42 [14 13 -92]] 137 [[14 13 -92] -15 [-92 45 33]]]
+path(T)  -->  [206 "LRL"]
+
+*****
+
+:"is a tree palindromic?"
+palin::{p::{:[(@x)|@y;x~y;&/x p'|y]};p(x;x)}
+
+:"all strings of n balanced parentheses"
+parens::{P::"()";
+         p::{:[0~x;[]:|1~x;,P;
+             ,/(,P,:\.f(x-1)),(,(,*P),:\(,P@1),:/.f(x-1)),,P,:/.f(x-1)]};
+         ?p(x)}
+
+:"costliest path through a binary tree"
+path::{[l r];:[@x;x,""
+              :|(*l::.f(*x))>*r::.f(x@2);((*l)+x@1),"L",l@1
+              ;((*r)+x@1),"R",r@1]}

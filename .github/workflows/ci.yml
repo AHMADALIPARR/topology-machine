@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 Topology Machine contributors
+# GitHub Actions for https://github.com/AHMADALIPARR/topology-machine
+# Jobs are the hosted split of the local `make ci` checks, with Z3 installed
+# so the solver job reads the emitted QF_BV query. A green run is evidence
+# only after GitHub has executed these jobs.
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    name: build, test, Klong
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install compiler
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: build, unit tests, Klong diff, CLI, install
+        run: make test
+
+  sanitizers:
+    name: sanitizers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install compiler
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: address and undefined sanitizers
+        run: make test-san
+
+  solver:
+    name: solver
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install compiler and z3
+        run: sudo apt-get update && sudo apt-get install -y build-essential z3
+      - name: emit the involution query and require unsat
+        run: |
+          make
+          ./build/tm smt involution --out build/reversible.smt2
+          diff -u tests/golden/reversible.smt2 build/reversible.smt2
+          result=$(z3 build/reversible.smt2 | tr -d '[:space:]')
+          printf 'z3: %s\n' "${result}"
+          test "${result}" = unsat
