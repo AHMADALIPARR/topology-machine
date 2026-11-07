@@ -1,0 +1,234 @@
+# topology-machine netlist 1
+# model gf256-mul aes-poly 0x11b
+tm-netlist 1
+input a0
+input a1
+input a2
+input a3
+input a4
+input a5
+input a6
+input a7
+input b0
+input b1
+input b2
+input b3
+input b4
+input b5
+input b6
+input b7
+and a0 b0 and_a0_b0
+and a7 b1 and_a7_b1
+xor and_a0_b0 and_a7_b1 xor_y0_0
+and a6 b2 and_a6_b2
+xor xor_y0_0 and_a6_b2 xor_y0_1
+and a5 b3 and_a5_b3
+xor xor_y0_1 and_a5_b3 xor_y0_2
+and a4 b4 and_a4_b4
+xor xor_y0_2 and_a4_b4 xor_y0_3
+and a3 b5 and_a3_b5
+xor xor_y0_3 and_a3_b5 xor_y0_4
+and a7 b5 and_a7_b5
+xor xor_y0_4 and_a7_b5 xor_y0_5
+and a2 b6 and_a2_b6
+xor xor_y0_5 and_a2_b6 xor_y0_6
+and a6 b6 and_a6_b6
+xor xor_y0_6 and_a6_b6 xor_y0_7
+and a7 b6 and_a7_b6
+xor xor_y0_7 and_a7_b6 xor_y0_8
+and a1 b7 and_a1_b7
+xor xor_y0_8 and_a1_b7 xor_y0_9
+and a5 b7 and_a5_b7
+xor xor_y0_9 and_a5_b7 xor_y0_10
+and a6 b7 and_a6_b7
+xor xor_y0_10 and_a6_b7 xor_y0_11
+and a1 b0 and_a1_b0
+and a0 b1 and_a0_b1
+xor and_a1_b0 and_a0_b1 xor_y1_0
+xor xor_y1_0 and_a7_b1 xor_y1_1
+xor xor_y1_1 and_a6_b2 xor_y1_2
+and a7 b2 and_a7_b2
+xor xor_y1_2 and_a7_b2 xor_y1_3
+xor xor_y1_3 and_a5_b3 xor_y1_4
+and a6 b3 and_a6_b3
+xor xor_y1_4 and_a6_b3 xor_y1_5
+xor xor_y1_5 and_a4_b4 xor_y1_6
+and a5 b4 and_a5_b4
+xor xor_y1_6 and_a5_b4 xor_y1_7
+xor xor_y1_7 and_a3_b5 xor_y1_8
+and a4 b5 and_a4_b5
+xor xor_y1_8 and_a4_b5 xor_y1_9
+xor xor_y1_9 and_a7_b5 xor_y1_10
+xor xor_y1_10 and_a2_b6 xor_y1_11
+and a3 b6 and_a3_b6
+xor xor_y1_11 and_a3_b6 xor_y1_12
+xor xor_y1_12 and_a6_b6 xor_y1_13
+xor xor_y1_13 and_a1_b7 xor_y1_14
+and a2 b7 and_a2_b7
+xor xor_y1_14 and_a2_b7 xor_y1_15
+xor xor_y1_15 and_a5_b7 xor_y1_16
+and a7 b7 and_a7_b7
+xor xor_y1_16 and_a7_b7 xor_y1_17
+and a2 b0 and_a2_b0
+and a1 b1 and_a1_b1
+xor and_a2_b0 and_a1_b1 xor_y2_0
+and a0 b2 and_a0_b2
+xor xor_y2_0 and_a0_b2 xor_y2_1
+xor xor_y2_1 and_a7_b2 xor_y2_2
+xor xor_y2_2 and_a6_b3 xor_y2_3
+and a7 b3 and_a7_b3
+xor xor_y2_3 and_a7_b3 xor_y2_4
+xor xor_y2_4 and_a5_b4 xor_y2_5
+and a6 b4 and_a6_b4
+xor xor_y2_5 and_a6_b4 xor_y2_6
+xor xor_y2_6 and_a4_b5 xor_y2_7
+and a5 b5 and_a5_b5
+xor xor_y2_7 and_a5_b5 xor_y2_8
+xor xor_y2_8 and_a3_b6 xor_y2_9
+and a4 b6 and_a4_b6
+xor xor_y2_9 and_a4_b6 xor_y2_10
+xor xor_y2_10 and_a7_b6 xor_y2_11
+xor xor_y2_11 and_a2_b7 xor_y2_12
+and a3 b7 and_a3_b7
+xor xor_y2_12 and_a3_b7 xor_y2_13
+xor xor_y2_13 and_a6_b7 xor_y2_14
+and a3 b0 and_a3_b0
+and a2 b1 and_a2_b1
+xor and_a3_b0 and_a2_b1 xor_y3_0
+xor xor_y3_0 and_a7_b1 xor_y3_1
+and a1 b2 and_a1_b2
+xor xor_y3_1 and_a1_b2 xor_y3_2
+xor xor_y3_2 and_a6_b2 xor_y3_3
+and a0 b3 and_a0_b3
+xor xor_y3_3 and_a0_b3 xor_y3_4
+xor xor_y3_4 and_a5_b3 xor_y3_5
+xor xor_y3_5 and_a7_b3 xor_y3_6
+xor xor_y3_6 and_a4_b4 xor_y3_7
+xor xor_y3_7 and_a6_b4 xor_y3_8
+and a7 b4 and_a7_b4
+xor xor_y3_8 and_a7_b4 xor_y3_9
+xor xor_y3_9 and_a3_b5 xor_y3_10
+xor xor_y3_10 and_a5_b5 xor_y3_11
+and a6 b5 and_a6_b5
+xor xor_y3_11 and_a6_b5 xor_y3_12
+xor xor_y3_12 and_a7_b5 xor_y3_13
+xor xor_y3_13 and_a2_b6 xor_y3_14
+xor xor_y3_14 and_a4_b6 xor_y3_15
+and a5 b6 and_a5_b6
+xor xor_y3_15 and_a5_b6 xor_y3_16
+xor xor_y3_16 and_a6_b6 xor_y3_17
+xor xor_y3_17 and_a7_b6 xor_y3_18
+xor xor_y3_18 and_a1_b7 xor_y3_19
+xor xor_y3_19 and_a3_b7 xor_y3_20
+and a4 b7 and_a4_b7
+xor xor_y3_20 and_a4_b7 xor_y3_21
+xor xor_y3_21 and_a5_b7 xor_y3_22
+xor xor_y3_22 and_a6_b7 xor_y3_23
+xor xor_y3_23 and_a7_b7 xor_y3_24
+and a4 b0 and_a4_b0
+and a3 b1 and_a3_b1
+xor and_a4_b0 and_a3_b1 xor_y4_0
+xor xor_y4_0 and_a7_b1 xor_y4_1
+and a2 b2 and_a2_b2
+xor xor_y4_1 and_a2_b2 xor_y4_2
+xor xor_y4_2 and_a6_b2 xor_y4_3
+xor xor_y4_3 and_a7_b2 xor_y4_4
+and a1 b3 and_a1_b3
+xor xor_y4_4 and_a1_b3 xor_y4_5
+xor xor_y4_5 and_a5_b3 xor_y4_6
+xor xor_y4_6 and_a6_b3 xor_y4_7
+and a0 b4 and_a0_b4
+xor xor_y4_7 and_a0_b4 xor_y4_8
+xor xor_y4_8 and_a4_b4 xor_y4_9
+xor xor_y4_9 and_a5_b4 xor_y4_10
+xor xor_y4_10 and_a7_b4 xor_y4_11
+xor xor_y4_11 and_a3_b5 xor_y4_12
+xor xor_y4_12 and_a4_b5 xor_y4_13
+xor xor_y4_13 and_a6_b5 xor_y4_14
+xor xor_y4_14 and_a2_b6 xor_y4_15
+xor xor_y4_15 and_a3_b6 xor_y4_16
+xor xor_y4_16 and_a5_b6 xor_y4_17
+xor xor_y4_17 and_a1_b7 xor_y4_18
+xor xor_y4_18 and_a2_b7 xor_y4_19
+xor xor_y4_19 and_a4_b7 xor_y4_20
+xor xor_y4_20 and_a7_b7 xor_y4_21
+and a5 b0 and_a5_b0
+and a4 b1 and_a4_b1
+xor and_a5_b0 and_a4_b1 xor_y5_0
+and a3 b2 and_a3_b2
+xor xor_y5_0 and_a3_b2 xor_y5_1
+xor xor_y5_1 and_a7_b2 xor_y5_2
+and a2 b3 and_a2_b3
+xor xor_y5_2 and_a2_b3 xor_y5_3
+xor xor_y5_3 and_a6_b3 xor_y5_4
+xor xor_y5_4 and_a7_b3 xor_y5_5
+and a1 b4 and_a1_b4
+xor xor_y5_5 and_a1_b4 xor_y5_6
+xor xor_y5_6 and_a5_b4 xor_y5_7
+xor xor_y5_7 and_a6_b4 xor_y5_8
+and a0 b5 and_a0_b5
+xor xor_y5_8 and_a0_b5 xor_y5_9
+xor xor_y5_9 and_a4_b5 xor_y5_10
+xor xor_y5_10 and_a5_b5 xor_y5_11
+xor xor_y5_11 and_a7_b5 xor_y5_12
+xor xor_y5_12 and_a3_b6 xor_y5_13
+xor xor_y5_13 and_a4_b6 xor_y5_14
+xor xor_y5_14 and_a6_b6 xor_y5_15
+xor xor_y5_15 and_a2_b7 xor_y5_16
+xor xor_y5_16 and_a3_b7 xor_y5_17
+xor xor_y5_17 and_a5_b7 xor_y5_18
+and a6 b0 and_a6_b0
+and a5 b1 and_a5_b1
+xor and_a6_b0 and_a5_b1 xor_y6_0
+and a4 b2 and_a4_b2
+xor xor_y6_0 and_a4_b2 xor_y6_1
+and a3 b3 and_a3_b3
+xor xor_y6_1 and_a3_b3 xor_y6_2
+xor xor_y6_2 and_a7_b3 xor_y6_3
+and a2 b4 and_a2_b4
+xor xor_y6_3 and_a2_b4 xor_y6_4
+xor xor_y6_4 and_a6_b4 xor_y6_5
+xor xor_y6_5 and_a7_b4 xor_y6_6
+and a1 b5 and_a1_b5
+xor xor_y6_6 and_a1_b5 xor_y6_7
+xor xor_y6_7 and_a5_b5 xor_y6_8
+xor xor_y6_8 and_a6_b5 xor_y6_9
+and a0 b6 and_a0_b6
+xor xor_y6_9 and_a0_b6 xor_y6_10
+xor xor_y6_10 and_a4_b6 xor_y6_11
+xor xor_y6_11 and_a5_b6 xor_y6_12
+xor xor_y6_12 and_a7_b6 xor_y6_13
+xor xor_y6_13 and_a3_b7 xor_y6_14
+xor xor_y6_14 and_a4_b7 xor_y6_15
+xor xor_y6_15 and_a6_b7 xor_y6_16
+and a7 b0 and_a7_b0
+and a6 b1 and_a6_b1
+xor and_a7_b0 and_a6_b1 xor_y7_0
+and a5 b2 and_a5_b2
+xor xor_y7_0 and_a5_b2 xor_y7_1
+and a4 b3 and_a4_b3
+xor xor_y7_1 and_a4_b3 xor_y7_2
+and a3 b4 and_a3_b4
+xor xor_y7_2 and_a3_b4 xor_y7_3
+xor xor_y7_3 and_a7_b4 xor_y7_4
+and a2 b5 and_a2_b5
+xor xor_y7_4 and_a2_b5 xor_y7_5
+xor xor_y7_5 and_a6_b5 xor_y7_6
+xor xor_y7_6 and_a7_b5 xor_y7_7
+and a1 b6 and_a1_b6
+xor xor_y7_7 and_a1_b6 xor_y7_8
+xor xor_y7_8 and_a5_b6 xor_y7_9
+xor xor_y7_9 and_a6_b6 xor_y7_10
+and a0 b7 and_a0_b7
+xor xor_y7_10 and_a0_b7 xor_y7_11
+xor xor_y7_11 and_a4_b7 xor_y7_12
+xor xor_y7_12 and_a5_b7 xor_y7_13
+xor xor_y7_13 and_a7_b7 xor_y7_14
+output y0 xor_y0_11
+output y1 xor_y1_17
+output y2 xor_y2_14
+output y3 xor_y3_24
+output y4 xor_y4_21
+output y5 xor_y5_18
+output y6 xor_y6_16
+output y7 xor_y7_14

@@ -1,0 +1,9 @@
+:" Weighted sum and prefix scan. SPDX-License-Identifier: AGPL-3.0-only"
+:" Copyright (C) 2026 Topology Machine contributors"
+:" kg does not echo bare expressions in script mode, so the results are printed."
+weights::[1 2 4 8]
+inputs::[1 0 1 1]
+dot::{+/x*y}
+scan::{+\x}
+.p(dot(weights;inputs))
+.p(scan(inputs))
