@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="164" height="28" role="img">
+  <title>openqasm: 3 subset</title>
+  <rect width="82" height="28" fill="#30343c"/>
+  <rect x="82" width="82" height="28" fill="#2f6f4e"/>
+  <text x="41.0" y="18" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#e6eaf0">openqasm</text>
+  <text x="123.0" y="18" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#ffffff">3 subset</text>
+</svg>
