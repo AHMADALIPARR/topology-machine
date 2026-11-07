@@ -1,0 +1,7 @@
+tm 1.0.0
+date_utc 2026-11-07T07:09:02Z
+Linux 6.12.113+ x86_64
+Ubuntu clang version 18.1.3 (1ubuntu1)
+cflags -std=c11 -O2 -Wall -Wextra -Werror -pedantic
+runs 5
+model name	: Intel(R) Xeon(R) Processor
